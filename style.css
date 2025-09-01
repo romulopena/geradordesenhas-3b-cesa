@@ -1,158 +1,419 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap');
+/* Importação de fontes futurísticas do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap');
 
+/* Variáveis de cores e fontes futurísticas */
 :root {
-    --branco: white;
-    --cor-de-fundo: #ed2f09;
-    --fundo-senha: #d89b38;
-    --fundo-texto: #abb103;
-    --borda: #d28749;
-    --roboto: 'Roboto', sans-serif;
-    --roboto-mono: 'Roboto Mono', monospace;
+    --fundo-principal: #1a1a2e; /* Azul escuro profundo */
+    --fundo-secundario: #16213e; /* Azul médio */
+    --borda-brilho: #0f3460; /* Azul escuro para bordas */
+    --texto-claro: #e0e0e0; /* Cinza claro futurístico */
+    --texto-contraste: #e94560; /* Vermelho/Rosa Neon */
+    --azul-neon: #00bcd4; /* Azul ciano neon */
+    --verde-neon: #76ff03; /* Verde lima neon */
+    --amarelo-neon: #fffb00; /* Amarelo neon */
+    --roxo-neon: #ea00ff; /* Roxo vibrante */
+
+    /* Fontes */
+    --fonte-titulo: 'Orbitron', sans-serif; /* Títulos impactantes */
+    --fonte-texto: 'Share Tech Mono', monospace; /* Texto técnico/futurístico */
 }
 
+/* Estilos gerais */
 * {
-    font-weight: 400;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    color: var(--branco);
-    background-color: var(--cor-de-fundo);
-    font-family: var(--roboto);
+    background-color: var(--fundo-principal);
+    color: var(--texto-claro);
+    font-family: var(--fonte-texto);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden; /* Para evitar barras de rolagem indesejadas com efeitos */
+    position: relative;
+}
+
+/* Efeito de fundo sutil - Opcional, mas dá um toque futurista */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 188, 212, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(234, 0, 255, 0.1) 0%, transparent 50%);
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Container principal - centralizado e flutuante */
+.conteudo {
+    max-width: 600px;
+    width: 90%;
+    background: var(--fundo-secundario);
+    padding: 50px;
+    border-radius: 15px;
+    border: 1px solid var(--borda-brilho); /* Borda sutil de brilho */
+    box-shadow: 
+        0 0 15px rgba(0, 188, 212, 0.3), /* Brilho azul */
+        0 0 30px rgba(234, 0, 255, 0.2); /* Brilho roxo */
+    position: relative;
+    z-index: 1; /* Garante que fique acima do efeito de fundo */
+    transform: perspective(1000px) rotateY(5deg); /* Leve inclinação para efeito 3D */
+    transition: transform 0.5s ease;
+}
+
+.conteudo:hover {
+    transform: perspective(1000px) rotateY(0deg); /* Desfaz a inclinação no hover */
+}
+
+
+/* Títulos e imagem */
+.conteudo-titulo {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.conteudo-titulo img {
+    width: 80px;
+    filter: drop-shadow(0 0 8px var(--azul-neon)); /* Efeito neon na imagem */
+    margin-bottom: 20px;
 }
 
 .titulo-principal {
-    font-family: var(--roboto-mono);
-    font-size: 32px;
+    font-family: var(--fonte-titulo);
+    font-size: 2.8rem;
+    color: var(--azul-neon);
+    text-shadow: 0 0 10px var(--azul-neon), 0 0 20px var(--azul-neon); /* Efeito neon no texto */
+    margin: 0;
+    letter-spacing: 2px;
 }
 
 .titulo-secundario {
-    font-size: 24px;
+    font-family: var(--fonte-titulo);
+    font-size: 1.2rem;
+    color: var(--roxo-neon);
+    text-shadow: 0 0 5px var(--roxo-neon);
+    margin: 10px 0 0 0;
+    text-transform: uppercase;
 }
 
-.conteudo-titulo {
-    text-align: center;
-    margin-top: 80px;
-}
-
+/* Seção de senha */
 .conteudo-senha {
-    margin-top: 80px;
-    background: var(--fundo-senha);
-    padding: 24px;
-    border-bottom: 6px solid var(--borda);
+    margin-bottom: 35px;
+    position: relative;
+    padding: 10px; /* Padding para a borda animada */
+    border-radius: 10px;
+    background-color: var(--fundo-principal); /* Fundo mais escuro para o campo de senha */
+    box-shadow: inset 0 0 10px rgba(0, 188, 212, 0.2);
+}
+
+.conteudo-senha::before { /* Borda animada */
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--azul-neon), var(--roxo-neon), var(--azul-neon));
+    background-size: 400% 400%;
+    z-index: -1;
+    border-radius: 12px;
+    filter: blur(5px);
+    animation: gradientBorder 3s ease infinite;
+}
+
+@keyframes gradientBorder {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.conteudo-senha label {
+    font-family: var(--fonte-texto);
+    font-size: 0.9rem;
+    font-weight: normal;
+    display: block;
+    margin-bottom: 10px;
+    color: var(--azul-neon);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 #campo-senha {
-    background-color: var(--fundo-senha);
-    border: none;
-    color: var(--branco);
-    font-family: var(--roboto-mono);
-    font-size: 40px;
-    width: 70%;
+    background-color: transparent; /* Fundo transparente para o campo */
+    border: 1px solid var(--borda-brilho); /* Borda discreta */
+    color: var(--verde-neon); /* Cor da senha destacada */
+    font-family: var(--fonte-texto);
+    font-size: 2rem;
+    width: 100%;
+    padding: 18px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: inset 0 0 10px rgba(0, 188, 212, 0.2);
+    transition: all 0.3s ease;
 }
 
 #campo-senha:focus {
     outline: none;
+    border-color: var(--azul-neon);
+    box-shadow: inset 0 0 15px rgba(0, 188, 212, 0.4), 0 0 10px rgba(0, 188, 212, 0.5);
 }
 
-.conteudo {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
+/* Seção de parâmetros */
 .parametro {
-    background-color: var(--fundo-texto);
-    border: 2px solid var(--borda);
-    margin-top: 32px;
-    padding: 24px;
+    background-color: var(--fundo-principal);
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid var(--borda-brilho);
+    box-shadow: 0 0 10px rgba(234, 0, 255, 0.1);
+    margin-top: 30px; /* Mais espaço acima */
 }
 
 .parametro-titulo {
-    font-family: var(--roboto-mono);
-    font-size: 28px;
-}
-
-.parametro-senha-botoes {
-    display: flex;
-    justify-content: center;
-
-}
-
-.parametro-senha__titulo {
-    font-size: 24px;
+    font-family: var(--fonte-titulo);
+    font-size: 1.8rem;
+    color: var(--roxo-neon);
+    text-align: center;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .parametro-coluna__senha {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid; /* Usando grid para mais controle de layout */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* 3 colunas em telas maiores */
+    gap: 30px;
+    margin-bottom: 30px; /* Mais espaço para a barra de força */
 }
 
+/* Estilos para cada bloco de parâmetro */
 .parametro-senha {
-    width: 50%;
-    margin: 0 auto;
+    background-color: var(--fundo-secundario);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid var(--borda-brilho);
+    box-shadow: 0 0 8px rgba(0, 188, 212, 0.1);
+    text-align: center;
+    position: relative; /* Para possíveis decorações futuras */
+}
+
+.parametro-senha__titulo {
+    font-family: var(--fonte-titulo);
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: var(--azul-neon);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Botões de + e - */
+.parametro-senha-botoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
 }
 
 .parametro-senha__botao {
-    background-color: var(--fundo-texto);
-    color: var(--branco);
-    border: 2px solid var(--borda);
-    padding: 24px;
-    font-size: 24px;
+    background-color: var(--azul-neon);
+    color: var(--fundo-principal);
+    border: none;
+    padding: 8px 18px;
+    font-size: 1.8rem;
     cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+    transition: all 0.3s ease;
+}
+
+.parametro-senha__botao:hover {
+    background-color: var(--roxo-neon);
+    box-shadow: 0 0 15px rgba(234, 0, 255, 0.7);
+    transform: translateY(-2px) scale(1.05);
+}
+
+.parametro-senha__botao:active {
+    transform: translateY(0px) scale(0.98);
+    box-shadow: 0 0 5px rgba(234, 0, 255, 0.3);
 }
 
 .parametro-senha__texto {
-    border-top: 2px solid var(--borda);
-    border-bottom: 2px solid var(--borda);
-    padding: 24px;
+    font-family: var(--fonte-texto);
+    font-size: 1.8rem;
     margin: 0;
-    font-size: 24px;
+    padding: 10px;
+    background-color: var(--fundo-principal);
+    border: 1px solid var(--borda-brilho);
+    border-radius: 5px;
+    min-width: 60px;
+    text-align: center;
+    color: var(--verde-neon);
+    box-shadow: inset 0 0 5px rgba(0, 188, 212, 0.2);
 }
 
-.parametro-senha-textos{
-    display:flex;
-    justify-content: space-between;
+/* Checkboxes */
+.parametro-senha-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    justify-content: flex-start; /* Alinha à esquerda */
+    padding-left: 10px; /* Pequeno recuo */
 }
 
-label {
-    font-size: 20px;
+.parametro-senha-checkbox label {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--texto-claro);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
+/* Custom checkbox */
 .checkbox {
-    width: 20px;
-    height: 20px;
+    appearance: none; /* Remove a aparência padrão */
+    width: 25px;
+    height: 25px;
+    border: 2px solid var(--azul-neon);
+    border-radius: 4px;
+    background-color: var(--fundo-principal);
     cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.checkbox::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 15px;
+    height: 15px;
+    background-color: var(--verde-neon);
+    border-radius: 2px;
+    transition: transform 0.2s ease;
+}
+
+.checkbox:checked {
+    border-color: var(--verde-neon);
+    box-shadow: 0 0 8px rgba(118, 255, 3, 0.7);
+}
+
+.checkbox:checked::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Força da senha */
+.parametro-senha-textos {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--texto-claro);
+    margin-top: 15px;
+    padding: 0 5px;
 }
 
 .barra {
-    background-color: var(--fundo-senha);
-    height: 30px;
+    background-color: var(--borda-brilho);
+    height: 15px; /* Mais grossa */
     width: 100%;
-}
-
-.forca{
-    height: 30px;
+    border-radius: 8px;
+    overflow: hidden;
     position: relative;
-    bottom: 30px;
+    margin-top: 10px;
 }
 
-.fraca{
-    width: 25%;
-    background-color: #E71B32; 
+.forca {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 8px;
+    transition: width 0.4s ease-in-out, background-color 0.4s ease-in-out;
+    background: linear-gradient(90deg, transparent, var(--verde-neon)); /* Gradiente na barra */
 }
 
-.media{
-    background-color:#FAF408;
-    width:50%;
+.fraca {
+    width: 33.3%;
+    background: linear-gradient(90deg, transparent, var(--texto-contraste));
 }
 
-.forte{
-    background-color:#00FF85;
-    width:100%;
+.media {
+    width: 66.6%;
+    background: linear-gradient(90deg, transparent, var(--amarelo-neon));
 }
 
+.forte {
+    width: 100%;
+    background: linear-gradient(90deg, transparent, var(--verde-neon));
+}
+
+.entropia {
+    font-family: var(--fonte-titulo);
+    font-size: 1.2rem;
+    text-align: center;
+    color: var(--azul-neon);
+    margin-top: 25px;
+    text-shadow: 0 0 5px var(--azul-neon);
+}
+
+/* Responsividade */
 @media screen and (min-width: 768px) {
+    .conteudo {
+        padding: 70px;
+        width: 80%;
+    }
+
     .parametro-coluna__senha {
-        flex-direction: row;
+        grid-template-columns: repeat(3, 1fr); /* 3 colunas em telas maiores */
+    }
+
+    .parametro-senha-checkbox {
+        justify-content: center; /* Centraliza checkboxes em telas maiores */
+    }
+}
+
+/* Responsividade para telas menores */
+@media screen and (max-width: 480px) {
+    .conteudo {
+        padding: 30px;
+        border-radius: 8px;
+    }
+
+    .titulo-principal {
+        font-size: 2rem;
+    }
+
+    .titulo-secundario {
+        font-size: 0.9rem;
+    }
+
+    #campo-senha {
+        font-size: 1.5rem;
+        padding: 15px;
+    }
+
+    .parametro-titulo {
+        font-size: 1.5rem;
+    }
+
+    .parametro-senha__botao {
+        font-size: 1.5rem;
+        padding: 6px 15px;
+    }
+
+    .parametro-senha__texto {
+        font-size: 1.5rem;
     }
 }
